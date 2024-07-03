@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.Services.AddDbContext<ApplicationContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+//builder.Services.AddDbContext<ApplicationContext>(options =>
+//{
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+//});
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
