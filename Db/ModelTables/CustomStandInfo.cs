@@ -5,27 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Db.Model_Tables
+namespace InteractionDb.ModelTables
 {
-    public record CustomStandInfo
+    public record CustomStandInfo(int Id, string Name, int CreatorId)
     {
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public Employees Employees { get; set; }
         public int CreatorId { get; set; }
          public List<CustomStandEmployees> CustomStandEmployees { get; set;}
         public List<CustomStandRights> CustomStandRights { get; set; }
+        
     }
-    public record CustomStandInfoMap
-    {
-        public CustomStandInfoMap(EntityTypeBuilder<CustomStandInfo> entityTypeBuilder)
-        {
-            entityTypeBuilder.HasKey(e => e.Id);
-            entityTypeBuilder.
-                HasMany(e => e.CustomStandRights)
-                .WithOne(e => e.CustomStandInfo)
-                .HasForeignKey(e => e.InfoCenterId);
-           
-        }
-    }
+   
 }

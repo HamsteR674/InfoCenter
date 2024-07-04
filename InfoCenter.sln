@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoCenter", "InfoCenter\InfoCenter.csproj", "{9006699E-4656-4438-B0EA-A34E4700DBBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db", "Db\Db.csproj", "{13137FFF-6B02-4E8A-9561-9AB1E7FFB14B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractionDb", "Db\InteractionDb.csproj", "{13137FFF-6B02-4E8A-9561-9AB1E7FFB14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace Db.Model_Tables
+namespace InteractionDb.ModelTables
 {
     public record Settings
     {
@@ -19,12 +19,5 @@ namespace Db.Model_Tables
         [Column(TypeName = "json")]
         public string JsonSettings { get; set; }
     }
-    public record SettingsMap
-    {
-        public SettingsMap(EntityTypeBuilder<Settings> entityTypeBuilder)
-        {
-            entityTypeBuilder.HasKey(e => e.id);
-            entityTypeBuilder.Property(e => e.JsonSettings);
-        }
-    }
+  
 }

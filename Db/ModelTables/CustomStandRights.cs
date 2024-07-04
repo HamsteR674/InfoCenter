@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Db.Model_Tables
+namespace InteractionDb.ModelTables
 {
     public record CustomStandRights
     {
