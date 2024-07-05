@@ -15,7 +15,7 @@ namespace InteractionDb.ModelTables
         public Employees Employees { get; set; }
 
         [Column(TypeName = "json")]
-        public string JsonSettings { get; set; }
+        public string JsonSettings { get; }
     }
   
 }
