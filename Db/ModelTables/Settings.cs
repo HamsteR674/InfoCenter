@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record Settings
-    {
-        public int id { get; set; }
-        public int EmployeesId { get; set; }
+    public record Settings(int Id)
+    { 
 
         public Employees Employees { get; set; }
 

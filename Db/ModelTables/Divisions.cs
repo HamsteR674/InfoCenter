@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InteractionDb.ModelTables
 {
-    public record Divisions
+    public record Divisions(long Id, string Name)
     {
-        public long Id { get; set; }
-        public string Name { get; set; }  
 
        
         public int? ParentDivCode { get; set; }

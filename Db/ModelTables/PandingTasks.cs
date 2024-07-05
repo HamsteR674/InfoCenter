@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record PandingTasks
+    public record PandingTasks(int Id, int ServiceCallId, string ServiceCallTitle, string Description)
     {
-        public int Id { get; set; }
-        public int ServiceCallId { get; set; }
-        public string ServiceCallTitle { get; set; }
-        public string Description { get; set;}
+    
 
-        public int EployeeId { get; set; }
+        public MirrorParameters UpdateTime {  get; set; } 
+     
         public Employees Employees { get; set; }
 
     }

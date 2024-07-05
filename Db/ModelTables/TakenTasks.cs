@@ -7,19 +7,11 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record TakenTasks
+    public record TakenTasks(int Id, string Tittle, DateTimeOffset ExpirationData, string Description, string Service, string ServiceComponent, bool IsProjectTask, int ServiceCallId)
     {
-        public int Id { get; set; }
-        public string Tittle { get; set; }
-        public DateTimeOffset ExpirationData { get; set; }
-        public string Description { get; set; }
+    
 
-        public string Service {  get; set; }
-        public string ServiceComponent { get; set; }
-        public bool IsProjectTask { get; set; }
-        public int ServiceCallId { get; set; }
-
-        public int EployeeId { get; set; }
+     
         public Employees Employees { get; set; }
 
     }
