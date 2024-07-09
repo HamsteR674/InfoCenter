@@ -23,4 +23,20 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\CustomStandEmployeesDTO\" />
+    <Folder Include="DTO\CustomStandInfoDTO\" />
+    <Folder Include="DTO\CustomStandRightsDTO\" />
+    <Folder Include="DTO\DivisionsDTO\" />
+    <Folder Include="DTO\MirrorParametersDTO\" />
+    <Folder Include="DTO\PandingTaskDTO\" />
+    <Folder Include="DTO\SessionLogDTO\" />
+    <Folder Include="DTO\SettingsDTO\" />
+    <Folder Include="DTO\SystemInfoDTO\" />
+    <Folder Include="DTO\SystemStateInfoDTO\" />
+    <Folder Include="DTO\TakenTasksDTO\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 </Project>

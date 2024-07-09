@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InteractionDb.ModelTables
 {
-    public record Employees(int Id, string Name, string Email, bool IsFired, string Code)
+    public record Employees()
     {
-  
 
+        int Id {  get; set; }
+        string Name { get; set; }
+        string Email { get; set; }
+        bool IsFired { get; set; }
+        string Code { get; set; }
         public long DivisionId { get; set; }
         public Divisions Divisions { get; set; }
 

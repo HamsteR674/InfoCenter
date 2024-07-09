@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 namespace InteractionDb.ModelTables
 {
     [Index("CheckDateTime")]
-    public record SystemStateInfo(long Id, DateTimeOffset CheckDateTime, bool Result, string ErrorLis, long SystemInfoId)
-    {  
+    public class SystemStateInfo()
+    {
+        public long Id {  get; set; }
+        public DateTimeOffset CheckDateTime { get; set; }
+        public bool Result { get; set; }
+        public string ErrorLis { get; set; }
+        public long SystemInfoId { get; set; }
         public SystemInfo SystemInfo { get; set; }
     }
 }

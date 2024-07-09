@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record SystemInfo(long Id, string Name)
+    public class SystemInfo()
     {
-   
+        public long Id {  get; set; }
+        public string Name { get; set; }
 
         public List<SystemStateInfo>? StateInfos { get; set; }
     }
