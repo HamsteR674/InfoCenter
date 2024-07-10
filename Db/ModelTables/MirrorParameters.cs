@@ -13,7 +13,7 @@ namespace InteractionDb.ModelTables
         public DateTimeOffset InfoCenterUpdateTime { get; set; }
         public DateTimeOffset UpdateTimestam { get; set; }
         public List<TakenTasks>? TakenTasks { get; set; }
-        public List<PandingTasks>? PandingTasks { get; set;}
+        public List<PendingTasks>? PandingTasks { get; set;}
 
     }
 }

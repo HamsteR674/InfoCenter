@@ -22,7 +22,7 @@ namespace InteractionDb
         DbSet<SystemInfo> SystemInfo { get; set; }
         DbSet <SystemStateInfo> SystemStateInfo { get; set; }
         DbSet<TakenTasks> TakenTasks { get; set; }
-        DbSet<PandingTasks> PandingTasks { get; set; }
+        DbSet<PendingTasks> PandingTasks { get; set; }
         DbSet<MirrorParameters> MirrorParameters { get; set; } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

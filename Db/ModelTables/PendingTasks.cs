@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public class PandingTasks()
+    public class PendingTasks()
     {
 
         public int Id {  get; set; }

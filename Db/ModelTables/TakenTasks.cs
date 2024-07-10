@@ -19,7 +19,7 @@ namespace InteractionDb.ModelTables
         public bool IsProjectTask { get; set; }
         public int ServiceCallId { get; set; }
 
-
+        public MirrorParameters UpdateTime { get; set; }
         public Employees Employees { get; set; }
 
     }
