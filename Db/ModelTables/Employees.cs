@@ -11,8 +11,8 @@ namespace InteractionDb.ModelTables
         public string Email { get; set; }
         public bool IsFired { get; set; }
         public string Code { get; set; }
-        public long DivisionId { get; set; }
-        public Divisions Divisions { get; set; }
+        public long? DivisionId { get; set; }
+        public Divisions? Divisions { get; set; }
 
         public List<Divisions>? ChefDivisions { get; set; }
 

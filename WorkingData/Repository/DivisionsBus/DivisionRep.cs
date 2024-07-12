@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using InteractionDb.ModelTables;
 using InteractionDb.Repository.Divisions;
 using WorkingData.EntityModel.PendingTasks;
+using WorkingData.Repository.DivisionsBus;
 
 namespace WorkingData.Repository.DivisionsBus
 {
-    internal class DivisionRep(InteractionDb.Repository.PendingTasks.PendingTasks pendingTasks, InteractionDb.Repository.Divisions.Divisions divisions)
+    public class DivisionRep(InteractionDb.Repository.PendingTasks.IPendingTasks pendingTasks, InteractionDb.Repository.Divisions.IDivisions divisions) : IDivisionRep
     {
         public List<InteractionDb.ModelTables.PendingTasks> GetbyIdDivisionPendingTasks(long Id)
         {

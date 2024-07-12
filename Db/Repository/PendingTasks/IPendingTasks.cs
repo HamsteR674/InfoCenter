@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.PendingTasks
 {
-    internal interface IPendingTasks
+   public interface IPendingTasks
     {
         Task<InteractionDb.ModelTables.PendingTasks> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.PendingTasks>> GetAll();

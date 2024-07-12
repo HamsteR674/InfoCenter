@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.Divisions
 {
-    internal interface IDivisions
+    public interface IDivisions
     {
         Task<InteractionDb.ModelTables.Divisions> GetbyId(long id);
         Task<List<InteractionDb.ModelTables.Divisions>> GetAll();

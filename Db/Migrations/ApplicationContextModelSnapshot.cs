@@ -110,7 +110,7 @@ namespace InteractionDb.Migrations
                     b.Property<int?>("ParentDivCode")
                         .HasColumnType("integer");
 
-                    b.Property<long>("ParentId")
+                    b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -134,7 +134,7 @@ namespace InteractionDb.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("DivisionId")
+                    b.Property<long?>("DivisionId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Email")
@@ -174,7 +174,7 @@ namespace InteractionDb.Migrations
                     b.ToTable("MirrorParameters");
                 });
 
-            modelBuilder.Entity("InteractionDb.ModelTables.PandingTasks", b =>
+            modelBuilder.Entity("InteractionDb.ModelTables.PendingTasks", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -320,9 +320,6 @@ namespace InteractionDb.Migrations
                     b.Property<bool>("IsProjectTask")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("MirrorParametersId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Service")
                         .IsRequired()
                         .HasColumnType("text");
@@ -338,11 +335,14 @@ namespace InteractionDb.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UpdateTimeId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeesId");
 
-                    b.HasIndex("MirrorParametersId");
+                    b.HasIndex("UpdateTimeId");
 
                     b.ToTable("TakenTasks");
                 });
@@ -398,9 +398,7 @@ namespace InteractionDb.Migrations
 
                     b.HasOne("InteractionDb.ModelTables.Divisions", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("Chef");
 
@@ -411,14 +409,12 @@ namespace InteractionDb.Migrations
                 {
                     b.HasOne("InteractionDb.ModelTables.Divisions", "Divisions")
                         .WithMany("Employees")
-                        .HasForeignKey("DivisionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DivisionId");
 
                     b.Navigation("Divisions");
                 });
 
-            modelBuilder.Entity("InteractionDb.ModelTables.PandingTasks", b =>
+            modelBuilder.Entity("InteractionDb.ModelTables.PendingTasks", b =>
                 {
                     b.HasOne("InteractionDb.ModelTables.Employees", "Employees")
                         .WithMany("PandingTasks")
@@ -478,11 +474,15 @@ namespace InteractionDb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InteractionDb.ModelTables.MirrorParameters", null)
+                    b.HasOne("InteractionDb.ModelTables.MirrorParameters", "UpdateTime")
                         .WithMany("TakenTasks")
-                        .HasForeignKey("MirrorParametersId");
+                        .HasForeignKey("UpdateTimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employees");
+
+                    b.Navigation("UpdateTime");
                 });
 
             modelBuilder.Entity("InteractionDb.ModelTables.CustomStandInfo", b =>

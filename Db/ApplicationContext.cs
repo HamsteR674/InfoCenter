@@ -2,6 +2,7 @@
 using InteractionDb.ModelTables;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 
@@ -10,8 +11,9 @@ namespace InteractionDb
 
 {
     
-    public class ApplicationContext : DbContext
+    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext
     {
+      
         DbSet<Employees> Employees { get; set; }
         DbSet<SessionLog> SessionLog { get; set; }
         DbSet<Divisions> Divisions { get; set; }
@@ -37,8 +39,8 @@ namespace InteractionDb
                 .HasForeignKey(b => b.DivisionId);
         }
 
-      
-            
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()

@@ -9,7 +9,7 @@ namespace InteractionDb.ModelTables
         public long Id { get; set; }
         public string Name {  get; set; }
         public int? ParentDivCode { get; set; }
-        public Divisions Parent { get; set; }
+        public Divisions? Parent { get; set; }
         public List<Divisions> Children { get; set; }
 
         public int ChiefId { get; set; }

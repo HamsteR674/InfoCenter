@@ -1,13 +1,74 @@
-using InfoCenter;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using InfoCenter.Components;
+using InfoCenter.Components.Account;
+using InfoCenter.Data;
+using InteractionDb.Repository.Divisions;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WorkingData.Repository;
+using WorkingData.Repository.DivisionsBus;
+using WorkingData.ServiceCollection;
+using InteractionDb;
+using InteractionDb.ServiceCollection;
+var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+//builder.Services.AddCascadingAuthenticationState();
+//builder.Services.AddScoped<IdentityUserAccessor>();
+//builder.Services.AddScoped<IdentityRedirectManager>();
+//builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddWorkingData();
+builder.Services.AddInteractionDb();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = IdentityConstants.ApplicationScheme;
+        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddIdentityCookies();
+//builder.Services.AddDbContext<ApplicationContext>(options =>
+//{
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+//});
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationContext>(options =>
+  options.UseNpgsql(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddControllers();
+//builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddSignInManager()
+//    .AddDefaultTokenProviders();
 
-await builder.Build().RunAsync();
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+}
+else
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseAntiforgery();
+app.MapControllers();
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+// Add additional endpoints required by the Identity /Account Razor components.
+app.MapAdditionalIdentityEndpoints();
+
+app.Run();
