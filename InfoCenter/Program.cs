@@ -65,7 +65,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.MapControllers();
-app.MapBlazorHub();
 
 app.UseAntiforgery();
 
