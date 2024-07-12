@@ -15,7 +15,7 @@ namespace InfoCenter.Controller
 
         [Route("{id}")]
         [HttpGet]
-        public IActionResult GetPendingTasksDivisionId(long id)
+        public JsonResult GetPendingTasksDivisionId(long id)
 
         {
 
