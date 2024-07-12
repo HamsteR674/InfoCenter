@@ -4,9 +4,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using WorkingData.Repository.DivisionsBus;
 
-namespace InfoCenter.Controller
+namespace InfoCenter.Controllers
 {
-    [Route("PendingTasksController")]
+    [Route("api/tasks")]
     [ApiController]
 
     public class PendingTasksController(IDivisionRep divisionRep) : ControllerBase

@@ -1,5 +1,4 @@
 using InfoCenter.Components;
-using InfoCenter.Components.Account;
 using InfoCenter.Data;
 using InteractionDb.Repository.Divisions;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -23,12 +22,12 @@ builder.Services.AddRazorComponents()
 builder.Services.AddWorkingData();
 builder.Services.AddInteractionDb();
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddIdentityCookies();
+//builder.Services.AddAuthentication(options =>
+//    {
+//        options.DefaultScheme = IdentityConstants.ApplicationScheme;
+//        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+//    })
+//    .AddIdentityCookies();
 //builder.Services.AddDbContext<ApplicationContext>(options =>
 //{
 //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -43,9 +42,10 @@ builder.Services.AddControllers();
 //    .AddSignInManager()
 //    .AddDefaultTokenProviders();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
+
+//app.UseRouting();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -62,13 +62,16 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-app.UseAntiforgery();
+
+app.UseRouting();
 app.MapControllers();
+app.MapBlazorHub();
+
+app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 // Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
 
 app.Run();
