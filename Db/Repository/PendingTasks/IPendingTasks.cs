@@ -8,9 +8,12 @@ namespace InteractionDb.Repository.PendingTasks
 {
    public interface IPendingTasks
     {
-        Task<InteractionDb.ModelTables.PendingTasks> GetbyId(int id);
-        Task<List<InteractionDb.ModelTables.PendingTasks>> GetAll();
+        InteractionDb.ModelTables.PendingTasks GetbyId(int id);
+        List<InteractionDb.ModelTables.PendingTasks>GetAll();
+        List<InteractionDb.ModelTables.PendingTasks> GetbyIdDivision(long Id);
         void Update(InteractionDb.ModelTables.PendingTasks pandingTasks);
+        List<InteractionDb.ModelTables.PendingTasks> GetbyIdCustomStand(int Id);
+
         void Insert(InteractionDb.ModelTables.PendingTasks pandingTasks);
         void Delete(int id);
     }

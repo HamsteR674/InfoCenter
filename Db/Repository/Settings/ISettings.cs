@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.Settings
 {
-    internal interface ISettings
+    public interface ISettings
     {
         Task<InteractionDb.ModelTables.Settings> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.Settings>> GetAll();

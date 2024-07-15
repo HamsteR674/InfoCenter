@@ -3,6 +3,7 @@ using InteractionDb.ModelTables;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -11,7 +12,7 @@ namespace InteractionDb
 
 {
     
-    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext
+    public class ApplicationContext() : DbContext
     {
       
         DbSet<Employees> Employees { get; set; }
@@ -24,7 +25,7 @@ namespace InteractionDb
         DbSet<SystemInfo> SystemInfo { get; set; }
         DbSet <SystemStateInfo> SystemStateInfo { get; set; }
         DbSet<TakenTasks> TakenTasks { get; set; }
-        DbSet<PendingTasks> PandingTasks { get; set; }
+        DbSet<PendingTasks> PendingTasks { get; set; }
         DbSet<MirrorParameters> MirrorParameters { get; set; } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,7 +49,8 @@ namespace InteractionDb
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .Build();
 
-            optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseNpgsql("Host=localhost; Port=5432;Database =Test;Username=postgres;Password=1710");
+
         }
 
     }

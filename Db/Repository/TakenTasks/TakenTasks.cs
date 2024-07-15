@@ -13,10 +13,10 @@ namespace InteractionDb.Repository.TakenTasks
         private DbSet<ModelTables.TakenTasks> _takenTasks = context.Set<ModelTables.TakenTasks>();
 
 
-        public async Task<ModelTables.TakenTasks> GetbyId(int id)
+        public ModelTables.TakenTasks GetbyId(int id)
         {
 
-            ModelTables.TakenTasks takenTasks = await _takenTasks.SingleOrDefaultAsync(x => x.Id == id);
+            ModelTables.TakenTasks takenTasks =  _takenTasks.SingleOrDefault(x => x.Id == id);
             if (takenTasks == null) return null;
             return takenTasks;
         }
@@ -47,6 +47,21 @@ namespace InteractionDb.Repository.TakenTasks
             _takenTasks.Remove(takenTasks);
             context.SaveChanges();
 
+        }
+
+        public List<ModelTables.TakenTasks> GetbyIdDivision(long Id)
+        {
+
+            List<ModelTables.TakenTasks> pandingTasks = _takenTasks.Where(p => p.Employees.DivisionId    == Id).ToList();
+            if (pandingTasks == null) return null;
+
+            return pandingTasks;
+        }
+
+        public List<ModelTables.TakenTasks> GetbyIdCustomStand(int Id)
+        {
+           var tasks = _takenTasks.Where(t => t.Employees.CustomStandEmployees.Any(e => e.InfoCentre.Id == Id)).ToList();
+            return tasks; 
         }
     }
 }

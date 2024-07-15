@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WorkingData.Repository.DivisionsBus;
+using WorkingData.Repository.PendingRepBus;
 
 namespace WorkingData.ServiceCollection
 {
@@ -12,7 +12,7 @@ namespace WorkingData.ServiceCollection
     {
         public static IServiceCollection AddWorkingData(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IDivisionRep, DivisionRep>();
+            serviceCollection.AddScoped<IPendingRepBus, PendingRepBus>();
             return serviceCollection;
         }
     }

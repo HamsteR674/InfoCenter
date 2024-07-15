@@ -1,5 +1,6 @@
 ﻿using InteractionDb.Repository.Divisions;
 using InteractionDb.Repository.PendingTasks;
+using InteractionDb.Repository.TakenTasks;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace InteractionDb.ServiceCollection
         {
             serviceCollection
                 .AddScoped<IDivisions, Divisions>()
-                .AddScoped<IPendingTasks, PendingTasks>();
+                .AddScoped<IPendingTasks, PendingTasks>()
+                .AddScoped<ITakenTasks, TakenTasks>();
              
             return serviceCollection;
         }

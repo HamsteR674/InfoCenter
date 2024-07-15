@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.MirrorParameters
 {
-    internal interface IMirrorParameters
+    public interface IMirrorParameters
     {
         Task<InteractionDb.ModelTables.MirrorParameters> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.MirrorParameters>> GetAll();
         void Update(InteractionDb.ModelTables.MirrorParameters mirrorParameterss);
         void Insert(InteractionDb.ModelTables.MirrorParameters mirrorParameters);
+       
         void Delete(int id);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.SystemStateInfo
 {
-    internal interface ISystemStateInfo
+   public interface ISystemStateInfo
     {
         Task<InteractionDb.ModelTables.SystemStateInfo> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.SystemStateInfo>> GetAll();

@@ -14,7 +14,6 @@ namespace InteractionDb.ModelTables
         public string ServiceCallTitle { get; set; }
         public string Description { get; set; }
         public MirrorParameters UpdateTime {  get; set; } 
-     
         public Employees Employees { get; set; }
 
     }

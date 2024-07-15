@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.TakenTasks
 {
-    internal interface ITakenTasks
+    public interface ITakenTasks
     {
-        Task<InteractionDb.ModelTables.TakenTasks> GetbyId(int id);
+        InteractionDb.ModelTables.TakenTasks GetbyId(int id);
         Task<List<InteractionDb.ModelTables.TakenTasks>> GetAll();
         void Update(InteractionDb.ModelTables.TakenTasks takenTasks);
         void Insert(InteractionDb.ModelTables.TakenTasks takenTasks);
+        List<InteractionDb.ModelTables.TakenTasks> GetbyIdCustomStand(int Id);
+        List<InteractionDb.ModelTables.TakenTasks> GetbyIdDivision(long Id);
         void Delete(int id);
     }
 }

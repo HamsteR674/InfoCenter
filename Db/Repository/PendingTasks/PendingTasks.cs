@@ -13,18 +13,19 @@ namespace InteractionDb.Repository.PendingTasks
         private DbSet<ModelTables.PendingTasks> _pandingTasks = context.Set<ModelTables.PendingTasks>();
 
 
-        public async Task<ModelTables.PendingTasks> GetbyId(int id)
+        public ModelTables.PendingTasks GetbyId(int id)
         {
 
-            ModelTables.PendingTasks pandingTasks = await _pandingTasks.SingleOrDefaultAsync(x => x.Id == id);
+            ModelTables.PendingTasks pandingTasks =  _pandingTasks.SingleOrDefault(x => x.Id == id);
             if (pandingTasks == null) return null;
-            return pandingTasks;
+            return null;
         }
 
-        public async Task<List<ModelTables.PendingTasks>> GetAll()
+        public  List<ModelTables.PendingTasks>GetAll()
         {
-            List<ModelTables.PendingTasks> pandingTasks = await _pandingTasks.ToListAsync();
+            List<ModelTables.PendingTasks> pandingTasks = _pandingTasks.ToList();
             if (pandingTasks == null) return null;
+            
             return pandingTasks;
         }
 
@@ -47,6 +48,20 @@ namespace InteractionDb.Repository.PendingTasks
             _pandingTasks.Remove(pandingTasks);
             context.SaveChanges();
 
+        }
+
+        public List<ModelTables.PendingTasks> GetbyIdDivision(long Id)
+        {
+            List<ModelTables.PendingTasks> pandingTasks = _pandingTasks.Where(p => p.Employees.DivisionId == Id).ToList();
+            if (pandingTasks == null) return null;
+
+            return pandingTasks;
+        }
+
+        public List<ModelTables.PendingTasks> GetbyIdCustomStand(int Id)
+        {
+            var tasks = _pandingTasks.Where(t=> t.Employees.CustomStandEmployees.Any(e => e.InfoCentre.Id == Id)).ToList();
+            return tasks;
         }
     }
 }

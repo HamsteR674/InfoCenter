@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.SessionLog
 {
-    internal interface ISessionLog
+    public interface ISessionLog
     {
         Task<InteractionDb.ModelTables.SessionLog> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.SessionLog>> GetAll();

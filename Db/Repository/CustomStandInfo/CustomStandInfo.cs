@@ -46,5 +46,13 @@ namespace InteractionDb.Repository.CustomStandInfo
             context.SaveChanges();
 
         }
+
+        //public List<PendingTasks.PendingTasks> GetTasksbyId(int id)
+        //{
+        //    //var tasks = _customStandInfo.SingleOrDefault(e => e.Id == id).CustomStandEmployees.ToList().SelectMany(e => e.Employees.PandingTasks)   ;
+        //    ////List<PendingTasks.PendingTasks> result = new List<PendingTasks.PendingTasks>();
+        //    ////foreach
+        //    //return tasks;
+        //}
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.Employees
 {
-    internal interface IEmployees
+    public interface IEmployees
     {
         Task<InteractionDb.ModelTables.Employees> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.Employees>> GetAll();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.Repository.CustomStandRights
 {
-    internal interface ICustomStandRights
+    public interface ICustomStandRights
     {
         Task<InteractionDb.ModelTables.CustomStandRights> GetbyId(int id);
         Task<List<InteractionDb.ModelTables.CustomStandRights>> GetAll();
