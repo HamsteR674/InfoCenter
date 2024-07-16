@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record CustomStandEmployees(int Id, int InfoCentreId, int EmployeesId)
+    public class CustomStandEmployees( )
     {
-        public int Id { get; set; }
-        public int InfoCentreId { get; set; }
-        public CustomStandInfo  CustomStandInfo { get; set; }
+
+        public int Id {  get; set; }
+        public CustomStandInfo InfoCentre { get; set; }
 
         public Employees Employees { get; set; }
-        public int EmployeesId { get; set; }
+     
     }
 
 }

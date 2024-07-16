@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record Settings
+    public class Settings()
     {
-        public int id { get; set; }
-        public int EmployeesId { get; set; }
-
+        public int Id {  get; set; }
         public Employees Employees { get; set; }
 
         [Column(TypeName = "json")]

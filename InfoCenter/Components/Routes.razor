@@ -1,5 +1,4 @@
-﻿@using InfoCenter.Components.Account.Shared
-<Router AppAssembly="typeof(Program).Assembly">
+﻿<Router AppAssembly="typeof(App).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
             <NotAuthorized>

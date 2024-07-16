@@ -2,6 +2,8 @@
 using InteractionDb.ModelTables;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -10,8 +12,9 @@ namespace InteractionDb
 
 {
     
-    public class ApplicationContext : DbContext
+    public class ApplicationContext() : DbContext
     {
+      
         DbSet<Employees> Employees { get; set; }
         DbSet<SessionLog> SessionLog { get; set; }
         DbSet<Divisions> Divisions { get; set; }
@@ -22,7 +25,7 @@ namespace InteractionDb
         DbSet<SystemInfo> SystemInfo { get; set; }
         DbSet <SystemStateInfo> SystemStateInfo { get; set; }
         DbSet<TakenTasks> TakenTasks { get; set; }
-        DbSet<PandingTasks> PandingTasks { get; set; }
+        DbSet<PendingTasks> PendingTasks { get; set; }
         DbSet<MirrorParameters> MirrorParameters { get; set; } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,8 +40,8 @@ namespace InteractionDb
                 .HasForeignKey(b => b.DivisionId);
         }
 
-      
-            
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()
@@ -46,7 +49,8 @@ namespace InteractionDb
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .Build();
 
-            optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseNpgsql("Host=localhost; Port=5432;Database =Test;Username=postgres;Password=1710");
+
         }
 
     }

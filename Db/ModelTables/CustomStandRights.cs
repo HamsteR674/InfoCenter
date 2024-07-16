@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace InteractionDb.ModelTables
 {
-    public record CustomStandRights
+    public class CustomStandRights()
     {
-        public int Id { get; set; }
-        public int InfoCenterId { get; set; }
-        public CustomStandInfo CustomStandInfo { get; set; }
-        public int EmployeesId { get; set; }
+        public int Id {  get; set; }
+        public int EmployeesI { get; set; }
         public string Rights { get; set; }
+
+
+        public CustomStandInfo InfoCenterId { get; set; }
+ 
 
     }
 }
