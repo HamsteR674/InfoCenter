@@ -8,6 +8,9 @@ using WorkingData.Repository;
 using WorkingData.ServiceCollection;
 using InteractionDb;
 using InteractionDb.ServiceCollection;
+using MudBlazor.Services;
+using WorkingData.Repository.PendingRepBus;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -37,6 +40,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 Console.WriteLine(connectionString);
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllers();
+builder.Services.AddMudServices();
+
 //builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>()
 //    .AddSignInManager()

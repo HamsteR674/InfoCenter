@@ -22,6 +22,7 @@ a, .btn-link {
 
 h1:focus {
     outline: none;
+  
 }
 
 .valid.modified:not([type=checkbox]) {
