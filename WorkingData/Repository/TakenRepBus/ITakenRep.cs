@@ -12,7 +12,6 @@ namespace WorkingData.Repository.TakenRepBus
         List<TakTasks> GetbyIdDivisionTakenTasks(long Id);
         public List<InteractionDb.ModelTables.TakenTasks> GetbyIdCustomStandTasks(int Id);
         List<TakTasks> GetAll();
-        List<TakTasks> FilterData(bool r);
-        List<TakTasks> FilterName(bool r);
+
     }
 }

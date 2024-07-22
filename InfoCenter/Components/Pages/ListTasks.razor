@@ -15,22 +15,11 @@
     {
 
         Elements = _tasks.GetAll();
-        // result = new List<string>();
-        // foreach (var task in tasks)
-        // {
-        //     string projectTasks = "Нет";
-        //     if (task.IsProjectTasks == true)
-        //     {
-        //         projectTasks = "Да";
-        //     }
-
-        //     string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
-        //     Elements.Add(task);
-        // }
+       
     }
 
 }
->
+
 <MudMainContent>
     <MudContainer MaxWidth="MaxWidth.Medium" >
         @Body
@@ -44,7 +33,7 @@
                         <MudMenuItem OnClick="() => SetButtonText(0)">Все заявки</MudMenuItem>
                         <MudMenuItem OnClick="() => SetButtonText(1)">Подразделение 1</MudMenuItem>
 
-
+                        
                     </MudMenu>
                 </MudButtonGroup>
             </ToolBarContent>
@@ -77,8 +66,7 @@
             {
             case 0:
                 _buttonText = "По умолчанию";
-                P();
-                fdata = true;
+                OnInitializedAsync();
                 break;
             case 1:
                 _buttonText = "Подразделение 1";
@@ -92,118 +80,22 @@
 
 
         }
-       List< WorkingData.EntityModel.Tasks.TakTasks> takTasks;
+       
         long divisionId;
-        bool fdata = true;
-        int n;
-        private void filterData()
-        {
-            result = new List<string>();
-                var div = _tasks.FilterData(fdata);
-                foreach (var d in div)
-                {
-            string projectTasks = "Нет";
-            if (d.IsProjectTasks == true)
-            {
-                projectTasks = "Да";
-            }
-
-            string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
-            result.Add(s);
-                }
-            foreach (var d in div)
-            {
-            string projectTasks = "Нет";
-                if (d.IsProjectTasks == true)
-                    {
-                        projectTasks = "Да";
-                    }
-
-                string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
-                result.Add(s);
-                }
-            }
+        
+      
 
         private void DivisionIdTasks()
         {
             Elements = _tasks.GetbyIdDivisionTakenTasks(divisionId);
-            // result = new List<string>();
-            // foreach (var task in tasks)
-            // {
-            // string projectTasks = "Нет";
-            // if (task.IsProjectTasks == true)
-            //         {
-            //             projectTasks = "Да";
-            //         }
-
-            // string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
-            //     result.Add(s);
-            // }
+           
         }
-        private void GetAllTasks()
-        {
-            Elements = _tasks.GetbyIdDivisionTakenTasks(divisionId);
-            // result = new List<string>();
-            // foreach (var task in tasks)
-            // {
-            // string projectTasks = "Нет";
-            // if (task.IsProjectTasks == true)
-            //         {
-            //             projectTasks = "Да";
-            //         }
-
-            // string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
-            //     result.Add(s);
-            // }
-        }
-        private void filterTitlleName()
-        {
-            result = new List<string>();
-            var div = _tasks.FilterName(fdata);
-            foreach (var d in div)
-            {
-                string f = "Нет";
-                if (d.IsProjectTasks == true)
-                {
-                    f = "Да";
-                }
-
-                string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + f;
-                result.Add(s);
-            }
-
-        }
+     
+       
 
         }
         
       
-        @code {
-        
-       
-        List<string> result = new List<string>();
-
-        private void P()
-        {
-            result = new List<string>();
-
-            var div = _tasks.GetAll();
-            takTasks = div;
-            foreach(var d in div)
-            {
-            string f = "Нет";
-            if(d.IsProjectTasks == true)
-            {
-                f = "Да";
-            }
-
-            string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + f;
-           // Elements.Add(s);
-                
-            }
-
-        }
-
-
-        }
+  
     </MudContainer>
 </MudMainContent>   

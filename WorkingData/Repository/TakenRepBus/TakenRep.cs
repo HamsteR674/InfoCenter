@@ -11,51 +11,7 @@ namespace WorkingData.Repository.TakenRepBus
 {
     public class TakenRep(InteractionDb.Repository.TakenTasks.ITakenTasks takenTasks) : ITakenRep
     {
-        public List<TakTasks> FilterData(bool r)
-        {
-            List<TakTasks> takTasks = new List<TakTasks>();
-            var tasks = takenTasks.GetAll();
-            if (r == true)
-            {
-                var tas = tasks.OrderByDescending(n => n.ExpirationData);
-                foreach (var ta in tas)
-                {
-                    TakTasks t = new TakTasks(ta.Id, ta.ServiceCallId, ta.Tittle, ta.Description, ta.ExpirationData, ta.Service, ta.ServiceComponent, ta.IsProjectTask);
-                    takTasks.Add(t);
-                }
-                return takTasks;
-            }
-            var task = tasks.OrderBy(n => n.ExpirationData);
-            foreach (var tas in task)
-            {
-                TakTasks t = new TakTasks(tas.Id, tas.ServiceCallId, tas.Tittle, tas.Description, tas.ExpirationData, tas.Service, tas.ServiceComponent, tas.IsProjectTask);
-                takTasks.Add(t);
-            }
-            return takTasks;
-        }
-
-        public List<TakTasks> FilterName(bool r)
-        {
-            List<TakTasks> takTasks = new List<TakTasks>();
-            var tasks = takenTasks.GetAll();
-            if (r == true)
-            {
-                var tas = tasks.OrderByDescending(n => n.Tittle);
-                foreach (var ta in tas)
-                {
-                    TakTasks t = new TakTasks(ta.Id, ta.ServiceCallId, ta.Tittle, ta.Description, ta.ExpirationData, ta.Service, ta.ServiceComponent, ta.IsProjectTask);
-                    takTasks.Add(t);
-                }
-                return takTasks;
-            }
-            var task = tasks.OrderBy(n => n.Tittle);
-            foreach (var tas in task)
-            {
-                TakTasks t = new TakTasks(tas.Id, tas.ServiceCallId, tas.Tittle, tas.Description, tas.ExpirationData, tas.Service, tas.ServiceComponent, tas.IsProjectTask);
-                takTasks.Add(t);
-            }
-            return takTasks;
-        }
+       
 
         public List<TakTasks> GetAll()
         {
