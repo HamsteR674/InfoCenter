@@ -1,4 +1,5 @@
 ﻿using InteractionDb.ModelTables;
+using InteractionDb.Repository.TakenTasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,17 +69,22 @@ namespace WorkingData.Repository.TakenRepBus
             return takTasks;
         }
 
-        public List<TakenTasks> GetbyIdCustomStandTasks(int Id)
+        public List<InteractionDb.ModelTables.TakenTasks> GetbyIdCustomStandTasks(int Id)
         {
             var tasks = takenTasks.GetbyIdCustomStand(Id);
             return tasks;
         }
 
-        public List<InteractionDb.ModelTables.TakenTasks> GetbyIdDivisionTakenTasks(long Id)
+        public List<TakTasks> GetbyIdDivisionTakenTasks(long Id)
         {
-            var div = takenTasks.GetbyIdDivision(Id);
-
-            return div;
+            List<TakTasks> listTasks = new List<TakTasks>();
+            var tasks = takenTasks.GetbyIdDivision(Id);
+            foreach (var task in tasks)
+            {
+                TakTasks t = new TakTasks(task.Id, task.ServiceCallId, task.Tittle, task.Description, task.ExpirationData, task.Service, task.ServiceComponent, task.IsProjectTask);
+                listTasks.Add(t);
+            }
+            return listTasks;
         }
     }
 }

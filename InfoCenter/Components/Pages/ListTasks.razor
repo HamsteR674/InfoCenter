@@ -2,21 +2,72 @@
  @inject WorkingData.Repository.TakenRepBus.ITakenRep _tasks;
 
  @inherits LayoutComponentBase
+ @using System.Net.Http.Json
 
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+    private List<WorkingData.EntityModel.Tasks.TakTasks> Elements = new List<WorkingData.EntityModel.Tasks.TakTasks>();
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+
+        Elements = _tasks.GetAll();
+        // result = new List<string>();
+        // foreach (var task in tasks)
+        // {
+        //     string projectTasks = "Нет";
+        //     if (task.IsProjectTasks == true)
+        //     {
+        //         projectTasks = "Да";
+        //     }
+
+        //     string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
+        //     Elements.Add(task);
+        // }
+    }
+
+}
+>
 <MudMainContent>
-    <MudContainer MaxWidth="MaxWidth.Medium">
+    <MudContainer MaxWidth="MaxWidth.Medium" >
         @Body
-        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="d-flex justify-end ">
-            <MudButton>@_buttonText</MudButton>
-            <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" Style="align-self: auto;">
-                <MudMenuItem OnClick="() => SetButtonText(0)">По умолчанию</MudMenuItem>
-                <MudMenuItem OnClick="() => SetButtonText(1)">По дате убыванию</MudMenuItem>
-                <MudMenuItem OnClick="() => SetButtonText(2)">По дате возрастание</MudMenuItem>
-                <MudMenuItem OnClick="() => SetButtonText(3)">По названию убыванию</MudMenuItem>
-                <MudMenuItem OnClick="() => SetButtonText(4)">По названию возрастание</MudMenuItem>
-              
-            </MudMenu>
-        </MudButtonGroup>
+      
+        <MudTable Items="@Elements.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" SortLabel="Sort By">
+            <ToolBarContent >
+                <MudSpacer />
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="d-flex justify-end ">
+                    <MudButton>@_buttonText</MudButton>
+                    <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" Style="align-self: auto;">
+                        <MudMenuItem OnClick="() => SetButtonText(0)">Все заявки</MudMenuItem>
+                        <MudMenuItem OnClick="() => SetButtonText(1)">Подразделение 1</MudMenuItem>
+
+
+                    </MudMenu>
+                </MudButtonGroup>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.id)">ID</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Title)">Title</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Description)">Description</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Service)">Service</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.ServiceComponent)">ServiceComponent</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.ExpirationData)">Дата</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.IsProjectTasks)">Is Project Taskst</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="ID">@context.id</MudTd>
+                <MudTd DataLabel="Titl">@context.Title</MudTd>
+                <MudTd DataLabel="Description">@context.Description</MudTd>
+                <MudTd DataLabel="Service">@context.Service</MudTd>
+                <MudTd DataLabel="ServiceComponent">@context.ServiceComponent</MudTd>
+                <MudTd DataLabel="Дата">@context.ExpirationData</MudTd>
+                <MudTd DataLabel="Is Project Taskst">@context.IsProjectTasks</MudTd>
+            </RowTemplate>
+        </MudTable>
+
         @code {
             private string _buttonText = "По умолчанию";
 
@@ -30,34 +81,19 @@
                 fdata = true;
                 break;
             case 1:
-                _buttonText = "По дате убыванию";
-                fdata = false;
-                filterData();
+                _buttonText = "Подразделение 1";
+                divisionId = 1;
+                DivisionIdTasks();
                 break;
-            case 2:
-                _buttonText = "По дате возрастание";
-                fdata = true;
-                filterData();
-                break;
+           
 
-            case 3:
-                _buttonText = "По названию убыванию";
-                fdata = false;
-                filterTitlleName();
-                break;
-
-            case 4:
-                _buttonText = "По названию возрастание";
-                fdata = true;
-                filterTitlleName();
-                break;
-               
 
             }
 
 
         }
-
+       List< WorkingData.EntityModel.Tasks.TakTasks> takTasks;
+        long divisionId;
         bool fdata = true;
         int n;
         private void filterData()
@@ -66,18 +102,60 @@
                 var div = _tasks.FilterData(fdata);
                 foreach (var d in div)
                 {
-                    string f = "Нет";
-                    if (d.IsProjectTasks == true)
-                    {
-                        f = "Да";
-                    }
-
-                    string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + f;
-                    result.Add(s);
-                }
-
+            string projectTasks = "Нет";
+            if (d.IsProjectTasks == true)
+            {
+                projectTasks = "Да";
             }
 
+            string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
+            result.Add(s);
+                }
+            foreach (var d in div)
+            {
+            string projectTasks = "Нет";
+                if (d.IsProjectTasks == true)
+                    {
+                        projectTasks = "Да";
+                    }
+
+                string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
+                result.Add(s);
+                }
+            }
+
+        private void DivisionIdTasks()
+        {
+            Elements = _tasks.GetbyIdDivisionTakenTasks(divisionId);
+            // result = new List<string>();
+            // foreach (var task in tasks)
+            // {
+            // string projectTasks = "Нет";
+            // if (task.IsProjectTasks == true)
+            //         {
+            //             projectTasks = "Да";
+            //         }
+
+            // string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
+            //     result.Add(s);
+            // }
+        }
+        private void GetAllTasks()
+        {
+            Elements = _tasks.GetbyIdDivisionTakenTasks(divisionId);
+            // result = new List<string>();
+            // foreach (var task in tasks)
+            // {
+            // string projectTasks = "Нет";
+            // if (task.IsProjectTasks == true)
+            //         {
+            //             projectTasks = "Да";
+            //         }
+
+            // string s = JsonSerializer.Serialize(task.id) + "," + task.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceCallId) + "," + JsonSerializer.Serialize(task.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(task.ExpirationData).Trim(new char[] { '"' }) + "," + projectTasks;
+            //     result.Add(s);
+            // }
+        }
         private void filterTitlleName()
         {
             result = new List<string>();
@@ -97,39 +175,11 @@
         }
 
         }
-        }
-        <MudSimpleTable  Style="overflow-x: auto;margin-top : 20px;">
-            <thead>
-                <tr>
-                    @foreach (var h in headings)
-                    {
-                        <th>@h</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var res in result)
-                {
-                    <tr>
-                        @foreach (var x in res.Split(','))
-                        {
-                            <td>@x</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </MudSimpleTable>
-        <MudPaper Class="d-flex justify-end flex-grow-1 gap-4" Style="margin-top : 10px;" Elevation="0">
-            <MudButton Variant="Variant.Filled"  OnClick="P">
-                Создать таблицу
-            </MudButton>
-        </MudPaper>
+        
+      
         @code {
         
-        string[] headings = { "ID", "Title", "Description", "ServiceCallId", "Service", "ServiceComponent", "Дата", "Is Project Tasks" };
-        string[] rows = {
-
-        };
+       
         List<string> result = new List<string>();
 
         private void P()
@@ -137,6 +187,7 @@
             result = new List<string>();
 
             var div = _tasks.GetAll();
+            takTasks = div;
             foreach(var d in div)
             {
             string f = "Нет";
@@ -146,7 +197,7 @@
             }
 
             string s = JsonSerializer.Serialize(d.id) + "," + d.Title.Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.Description).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceCallId) + "," + JsonSerializer.Serialize(d.Service).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ServiceComponent).Trim(new char[] { '"' }) + "," + JsonSerializer.Serialize(d.ExpirationData).Trim(new char[] { '"' }) + "," + f;
-                result.Add(s);
+           // Elements.Add(s);
                 
             }
 
@@ -156,118 +207,3 @@
         }
     </MudContainer>
 </MudMainContent>   
-@*@using System.Net.Http.Json
-@using WorkingData.EntityModel.PendingTasks
-
-
-    <PageTitle>List</PageTitle>
-<head>
-    <h3 class="buttomFilterGroup">ListTasks</h3>
-</head>
-
-<MudPaper Height="" Width="100%">
-    <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
-            <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
-                <MudButton>@_buttonText</MudButton>
-                <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" Style="align-self: auto;">
-                    <MudMenuItem OnClick="() => SetButtonText(0)">По умолчанию</MudMenuItem>
-                    <MudMenuItem OnClick="() => SetButtonText(1)">По дате</MudMenuItem>
-                    <MudMenuItem OnClick="() => SetButtonText(2)">По подразделению</MudMenuItem>
-                </MudMenu>
-            </MudButtonGroup>
-        <MudButton OnClick="OnInitializedAsync">Clik</MudButton>
-           
-        <MudSimpleTable Style="overflow-x: auto;">
-            <thead>
-                <tr>
-                    @foreach (var h in headings)
-                    {
-                        <th>@h</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var row in rows)
-                {
-                    <tr>
-                        @foreach (var x in row.Split())
-                        {
-                            <td>@x</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </MudSimpleTable>
-    </MudContainer>
-</MudPaper>
-@code {
-    private string _buttonText = "По умолчанию";
-
-    private void SetButtonText(int id)
-    {
-        switch (id)
-        {
-            case 0:
-                _buttonText = "По умолчанию";
-                break;
-            case 1:
-                _buttonText = "По дате";
-                break;
-            case 2:
-                _buttonText = "По подразделению";
-                break;
-
-        }
-    }
-    string[] headings = { "ID", "Name", "Email", "Gender", "IP Address" };
-    string[] rows = {
-        @"1 Krishna kpartner0@usatoday.com Male 28.25.250.202",
-        @"2 Webb wstitle1@ning.com Male 237.168.134.114",
-        @"3 Nathanil nneal2@cyberchimps.com Male 92.6.0.175",
-        @"4 Adara alockwood3@patch.com Female 182.174.217.152",
-        @"5 Cecilius cchaplin4@shinystat.com Male 195.124.144.18",
-        @"6 Cicely cemerine9@soup.io Female 138.94.191.43",
-    };
-
-    public string OnInitializedAsync(WorkingData.Repository.PendingRepBus.IPendingRepBus pendingRepBus)
-    {
-        long id = 1;
-        var div = pendingRepBus.GetbyIdDivisionPendingTasks(id);
-        string result = JsonSerializer.Serialize(div);
-
-        return result;
-    }
-   
-}
-<MudText Typo="Typo.h6">MudBlazor is @Text</MudText>
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ButtonOnClick">@ButtonText</MudButton>
-@code {
-    public string Text { get; set; } = "????";
-    public string ButtonText { get; set; } = "Click Me";
-    public int ButtonClicked { get; set; }
-
-    void ButtonOnClick()
-    {
-        ButtonClicked += 1;
-        Text = $"Awesome x {ButtonClicked}";
-        ButtonText = "Click Me Again";
-    }
-}
-
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-}
- *@
-
-

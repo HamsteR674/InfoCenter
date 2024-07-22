@@ -52,8 +52,8 @@ namespace InteractionDb.Repository.TakenTasks
         public List<ModelTables.TakenTasks> GetbyIdDivision(long Id)
         {
 
-            List<ModelTables.TakenTasks> pandingTasks = _takenTasks.Where(p => p.Employees.DivisionId    == Id).ToList();
-            if (pandingTasks == null) return null;
+            List<ModelTables.TakenTasks> pandingTasks = _takenTasks.Where(p => p.Employees.DivisionId == Id).ToList();
+          
 
             return pandingTasks;
         }
