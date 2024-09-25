@@ -17,14 +17,14 @@ namespace InteractionDb.Repository.TakenTasks
         {
 
             ModelTables.TakenTasks takenTasks =  _takenTasks.SingleOrDefault(x => x.Id == id);
-            if (takenTasks == null) return null;
+            
             return takenTasks;
         }
 
-        public async Task<List<ModelTables.TakenTasks>> GetAll()
+        public List<ModelTables.TakenTasks> GetAll()
         {
-            List<ModelTables.TakenTasks> takenTasks = await _takenTasks.ToListAsync();
-            if (takenTasks == null) return null;
+            List<ModelTables.TakenTasks> takenTasks =  _takenTasks.ToList();
+           
             return takenTasks;
         }
 
@@ -52,8 +52,8 @@ namespace InteractionDb.Repository.TakenTasks
         public List<ModelTables.TakenTasks> GetbyIdDivision(long Id)
         {
 
-            List<ModelTables.TakenTasks> pandingTasks = _takenTasks.Where(p => p.Employees.DivisionId    == Id).ToList();
-            if (pandingTasks == null) return null;
+            List<ModelTables.TakenTasks> pandingTasks = _takenTasks.Where(p => p.Employees.DivisionId == Id).ToList();
+          
 
             return pandingTasks;
         }

@@ -12,7 +12,7 @@ namespace InteractionDb
 
 {
     
-    public class ApplicationContext() : DbContext
+    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext
     {
       
         DbSet<Employees> Employees { get; set; }

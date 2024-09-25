@@ -11,6 +11,18 @@ namespace WorkingData.Repository.PendingRepBus
 {
     public class PendingRepBus(InteractionDb.Repository.PendingTasks.IPendingTasks pending) : IPendingRepBus
     {
+        public List<PenTasks> GetAll()
+        {
+            List<PenTasks> penTasks = new List<PenTasks>();
+           var tasks = pending.GetAll();
+            foreach (var task in tasks)
+            {
+                PenTasks pen = new PenTasks(task.Id, task.ServiceCallId, task.ServiceCallTitle, task.Description);
+                penTasks.Add(pen);
+            }
+            return penTasks;
+        }
+
         public List<PendingTasks> GetbyCustomStandTasks(int id)
         {
             var tasks = pending.GetbyIdCustomStand(id);

@@ -1,0 +1,101 @@
+﻿ @page "/List"
+ @inject WorkingData.Repository.TakenRepBus.ITakenRep _tasks;
+
+ @inherits LayoutComponentBase
+ @using System.Net.Http.Json
+
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+    private List<WorkingData.EntityModel.Tasks.TakTasks> Elements = new List<WorkingData.EntityModel.Tasks.TakTasks>();
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+
+        Elements = _tasks.GetAll();
+       
+    }
+
+}
+
+<MudMainContent>
+    <MudContainer MaxWidth="MaxWidth.Medium" >
+        @Body
+      
+        <MudTable Items="@Elements.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" SortLabel="Sort By">
+            <ToolBarContent >
+                <MudSpacer />
+                <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="d-flex justify-end ">
+                    <MudButton>@_buttonText</MudButton>
+                    <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" Style="align-self: auto;">
+                        <MudMenuItem OnClick="() => SetButtonText(0)">Все заявки</MudMenuItem>
+                        <MudMenuItem OnClick="() => SetButtonText(1)">Подразделение 1</MudMenuItem>
+
+                        
+                    </MudMenu>
+                </MudButtonGroup>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.id)">ID</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Title)">Title</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Description)">Description</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.Service)">Service</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.ServiceComponent)">ServiceComponent</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.ExpirationData)">Дата</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<WorkingData.EntityModel.Tasks.TakTasks, object>(x => x.IsProjectTasks)">Is Project Taskst</MudTableSortLabel></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="ID">@context.id</MudTd>
+                <MudTd DataLabel="Titl">@context.Title</MudTd>
+                <MudTd DataLabel="Description">@context.Description</MudTd>
+                <MudTd DataLabel="Service">@context.Service</MudTd>
+                <MudTd DataLabel="ServiceComponent">@context.ServiceComponent</MudTd>
+                <MudTd DataLabel="Дата">@context.ExpirationData</MudTd>
+                <MudTd DataLabel="Is Project Taskst">@context.IsProjectTasks</MudTd>
+            </RowTemplate>
+        </MudTable>
+
+        @code {
+            private string _buttonText = "По умолчанию";
+
+        private void SetButtonText(int id)
+        {
+            switch (id)
+            {
+            case 0:
+                _buttonText = "По умолчанию";
+                OnInitializedAsync();
+                break;
+            case 1:
+                _buttonText = "Подразделение 1";
+                divisionId = 1;
+                DivisionIdTasks();
+                break;
+           
+
+
+            }
+
+
+        }
+       
+        long divisionId;
+        
+      
+
+        private void DivisionIdTasks()
+        {
+            Elements = _tasks.GetbyIdDivisionTakenTasks(divisionId);
+           
+        }
+     
+       
+
+        }
+        
+      
+  
+    </MudContainer>
+</MudMainContent>   
