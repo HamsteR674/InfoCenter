@@ -17,8 +17,8 @@ namespace WorkingData.Repository.PendingRepBus
            var tasks = pending.GetAll();
             foreach (var task in tasks)
             {
-                PenTasks pen = new PenTasks(task.Id, task.ServiceCallId, task.ServiceCallTitle, task.Description);
-                penTasks.Add(pen);
+                PenTasks pendingTask = new PenTasks(task.Id, task.ServiceCallId, task.ServiceCallTitle, task.Description);
+                penTasks.Add(pendingTask);
             }
             return penTasks;
         }

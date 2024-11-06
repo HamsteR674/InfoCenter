@@ -19,8 +19,8 @@ namespace WorkingData.Repository.TakenRepBus
             var tasks = takenTasks.GetAll();
             foreach (var task in tasks)
             {
-                TakTasks t = new TakTasks(task.Id,task.ServiceCallId,task.Tittle,task.Description,task.ExpirationData,task.Service,task.ServiceComponent,task.IsProjectTask);
-                takTasks.Add(t);
+                TakTasks takenTask = new TakTasks(task.Id,task.ServiceCallId,task.Tittle,task.Description,task.ExpirationData,task.Service,task.ServiceComponent,task.IsProjectTask);
+                takTasks.Add(takenTask);
             }
             return takTasks;
         }
@@ -37,8 +37,8 @@ namespace WorkingData.Repository.TakenRepBus
             var tasks = takenTasks.GetbyIdDivision(Id);
             foreach (var task in tasks)
             {
-                TakTasks t = new TakTasks(task.Id, task.ServiceCallId, task.Tittle, task.Description, task.ExpirationData, task.Service, task.ServiceComponent, task.IsProjectTask);
-                listTasks.Add(t);
+                TakTasks takenTask = new TakTasks(task.Id, task.ServiceCallId, task.Tittle, task.Description, task.ExpirationData, task.Service, task.ServiceComponent, task.IsProjectTask);
+                listTasks.Add(takenTask);
             }
             return listTasks;
         }
