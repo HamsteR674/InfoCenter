@@ -22,9 +22,9 @@ namespace InfoCenter.Controllers
 
         {
 
-            var pt = pending.GetbyIdDivisionPendingTasks(id);
-            var tt = takenTasks.GetbyIdDivision(id);
-          Tasks tasks = new Tasks(pt,tt ) ;
+            var pendingTasks = pending.GetbyIdDivisionPendingTasks(id);
+            var takenTasks1 = takenTasks.GetbyIdDivision(id);
+          Tasks tasks = new Tasks(pendingTasks, takenTasks1) ;
          
             return new JsonResult(tasks);
         }
@@ -34,9 +34,9 @@ namespace InfoCenter.Controllers
 
         {
 
-            var pt = pending.GetbyCustomStandTasks(id);
-            var tt = takenTasks.GetbyIdCustomStand(id);
-            Tasks tasks = new Tasks(pt, tt);
+            var pendingTasks = pending.GetbyCustomStandTasks(id);
+            var takenTasks1 = takenTasks.GetbyIdCustomStand(id);
+            Tasks tasks = new Tasks(pendingTasks, takenTasks1);
 
             return new JsonResult(tasks);
         }

@@ -12,7 +12,7 @@ namespace InteractionDb
 
 {
     
-    public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext
+    public class ApplicationContext : DbContext
     {
       
         DbSet<Employees> Employees { get; set; }
@@ -42,16 +42,11 @@ namespace InteractionDb
 
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var config = new ConfigurationBuilder()
-                        .AddJsonFile("appsettings.Development.json")
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .Build();
-
-            optionsBuilder.UseNpgsql("Host=localhost; Port=5432;Database =Test;Username=postgres;Password=1710");
-
-        }
+       public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        : base(options)
+    {
+        Database.EnsureCreated();   // создаем базу данных при первом обращении
+    }
 
     }
    
